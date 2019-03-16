@@ -42,7 +42,7 @@ PREDICTION_FILE_SRC = path/'static'/'predictions.txt'
 @app.route("/upload", methods=["POST"])
 async def upload(request):
     data = await request.form()
-    img_bytes = await (data["img"])
+    img_bytes = (data["img"])
     bytes = base64.b64decode(img_bytes)
     return predict_from_bytes(bytes)
 
