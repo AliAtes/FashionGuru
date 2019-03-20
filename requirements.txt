@@ -7,4 +7,3 @@ aiofiles
 aiohttp
 urllib3
 bs4
-urllib
