@@ -66,11 +66,10 @@ def predict_from_bytes(bytes, radios):
     elif(radios == "erkek" and str(predictions[0][0]) == "bağcıklı tulum"):
         radios = "jumpsuit"
     
-    logging.warning("Radios+predictions: " + radios + " " + str(predictions[0][0]))
-    logging.warning("https://www.google.com/search?q=" + radios + " " + str(predictions[0][0]) + "&tbm=shop")
-    
     radiosAndPrediction = quote(str(radios) + " " + str(predictions[0][0]))
-    page = http.request('GET', 'https://www.google.com/search', fields={"q":radiosAndPrediction, "tbm":"shop"})
+    logging.warning(radiosAndPrediction)
+    
+    page = http.request('GET', 'https://www.google.com/search?q=' + radiosAndPrediction + '&tbm=shop'})
     
     soup = BeautifulSoup(page.data, 'html.parser')
     
