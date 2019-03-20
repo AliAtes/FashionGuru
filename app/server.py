@@ -55,7 +55,7 @@ def predict_from_bytes(bytes):
     http = urllib3.PoolManager()
     page = http.request('GET', 'https://www.google.com/search?q=' + str(predictions[0]) + '&tbm=shop')
     soup = BeautifulSoup(page.data, 'html.parser')
-    all_cards_html = null	
+    all_cards_html = ""	
     for tag in soup.find_all("div", attrs={'class': 'pslires'}):
     	link = tag.div.a['href']
     	image = tag.div.img['src']
