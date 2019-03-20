@@ -69,7 +69,7 @@ def predict_from_bytes(bytes):
     	info = tag.div.img['alt']
     	shop = tag.findChildren()[6].getText()
     	amount = tag.findChildren()[3].div.getText()
-    	all_cards_html += ("<div class=\"col-6 col-sm-6 col-md-4 col-lg-3\" style=\"margin-top:20px;\"><a href=\"" + link + "\"><table style=\"text-align:center;\"><tr><td><img src=\"" + image + "\" /></td></tr><tr><td>" + info + " | " + shop + "</td></tr><tr><td>" + amount + "</td></tr></table></a></div>")
+    	all_cards_html += ("<!-- predictions: { " + "[" + predictions[0][0] + " - " predictions[0][1] + "], " + "[" + predictions[1][0] + " - " predictions[1][1] + "], " + "[" + predictions[2][0] + " - " predictions[2][1] + "]"    + " }--><div class=\"col-6 col-sm-6 col-md-4 col-lg-3\" style=\"margin-top:20px;\"><a href=\"" + link + "\"><table style=\"text-align:center;\"><tr><td><img src=\"" + image + "\" /></td></tr><tr><td>" + info + " | " + shop + "</td></tr><tr><td>" + amount + "</td></tr></table></a></div>")
     
     logging.warning("all_cards_html: " + all_cards_html)
     
