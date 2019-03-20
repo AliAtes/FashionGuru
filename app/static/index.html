@@ -1,5 +1,6 @@
+<html>
 <head>
-	<title>Ali Ates - Fashion Guru</title>
+	<title>Fashion Guru</title>
 	<meta charset="UTF-8"> 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -23,48 +24,62 @@
 	<link rel="stylesheet" type="text/css" href="static/css/util.css">
 	<link rel="stylesheet" type="text/css" href="static/css/main.css">
 <!--===============================================================================================-->
-	
-    <style>
-        .wrap-contact100 {
-            width: 90%;
-            padding: 50px;
-        }
 
-        .contact100-form-title {
-            padding-bottom: 25px;
+   <script>
+        function hideButton() {
+            document.getElementById('analiz-et').style.visibility = 'visible';
         }
-    </style>
-	
+    </script>
+
 </head>
 <body>
-	<div class="container-contact100">
-		<div class="wrap-contact100">
-			<span class="contact100-form-title">Ali Ates - Fashion Guru</span>
-			<form class="contact100-form validate-form" action="/upload" method="post" enctype="multipart/form-data">
-				<div class="wrap-input100 validate-input" data-validate = "Valid image file is required: jpg or png">
-					<span class="label-input100">Lütfen bir resim seçiniz...</span>
-					<input id="inp_file" type="file" name="file" value="Göz At">
-					<input id="inp_img" type="hidden" name="img" value="">
-					<span class="focus-input100"></span>
-				</div>
-				<div style="text-align:center;">
-					<img id='image-picked' class='no-display'>
-				</div>
-				<div class="container-contact100-form-btn">
-					<div class="wrap-contact100-form-btn">
-						<div class="contact100-form-bgbtn"></div>
-						<button type = "button" id = "submit_btn" class="contact100-form-btn">
-							<span>
-								Analiz Et
-								<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-							</span>
-						</button>
-					</div>
-				</div>
+    <div class="container-contact100">
+        <div class="wrap-contact100 main-bg">
 
-			</form>
-		</div>
-	</div>
-<script src="static/js/utility.js"></script>
+            <div style="text-align:center;">
+                <img style="width:100%" id='' src="images/logo.png">
+            </div>
+            <br />
+            <span class="contact100-form-title" style="font-size:40px;font-size:12vw;">Fashion Guru</span>
+
+
+            <form class="contact100-form validate-form" action="/upload" method="post" enctype="multipart/form-data">
+                <div class="wrap-input100 validate-input" data-validate="jpg veya png kabul edilmektedir.">
+
+                    <div style="text-align:center;">
+                        <img style="width:100%" id='image-picked' class='no-display'>
+                    </div>
+
+                    <div id="resim-sec" class="container-contact100-form-btn" style="margin-top:20px;">
+                        <div class="wrap-contact100-form-btn">
+                            <div class="contact100-form-bgbtn"></div>
+
+                            <label class="contact100-form-btn" style="margin-bottom:5px;margin-top:5px;" id="submit_btn" for="inp_file">
+                                <input id="inp_file" type="file" name="file" style="display:none;" onclick="hideButton();">
+                                <span class="btn-text">Ürün Seçiniz</span>
+                                <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                            </label>
+
+                        </div>
+                    </div>
+
+                    <input id="inp_img" type="hidden" name="img" value="">
+                    <span class="focus-input100"></span>
+                </div>
+
+
+                <div id="analiz-et" class="container-contact100-form-btn" style="visibility:hidden;">
+                    <div class="wrap-contact100-form-btn">
+                        <div class="contact100-form-bgbtn"></div>
+                        <button type="button" id="submit_btn" class="contact100-form-btn">
+                            <span class="btn-text">Göz At</span>
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <script src="static/js/utility.js"></script>
 </body>
 </html>
