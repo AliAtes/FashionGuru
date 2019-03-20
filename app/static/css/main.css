@@ -1,20 +1,29 @@
+
+.btn-text {
+    font-size:25px;
+	font-size:7vw;
+	font-family:Poppins-Bold;	
+}
 .wrap-contact100 {
-  width: 90%;
-  padding: 50px;
+    width: 90%;
+	padding: 50px;
 }
 .contact100-form-title {
-  padding-bottom: 25px;
+	padding-bottom: 25px;
 }
-.col-centered {
-  float: none;
-  margin: auto;
+	.col-centered {
+	float: none;
+	margin: auto;
 }
 .card {
-  margin: auto;
-  margin-top: 20px;
-  padding:15px;
-  border: 1px solid #f7f7f7;
-  text-align: center;
+    margin: auto;
+    margin-top: 20px;
+    padding:15px;
+	border: 1px solid #f7f7f7;
+    text-align: center;
+}
+.main-bg {
+	background: radial-gradient(#ffffff, #ffffffe6);
 }
 
 /*//////////////////////////////////////////////////////////////////
@@ -187,7 +196,7 @@ iframe {
 }
 
 .wrap-contact100 {
-  width: 500px;
+  width: 100%;
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
@@ -224,7 +233,7 @@ iframe {
   color: #333333;
   line-height: 1.2;
   text-align: center;
-  padding-bottom: 44px;
+  padding-bottom: 10px;
 }
 
 .contact100-form-result-title {
@@ -243,9 +252,9 @@ iframe {
 .wrap-input100 {
   width: 100%;
   position: relative;
-  border-bottom: 2px solid #d9d9d9;
-  padding-bottom: 13px;
-  margin-bottom: 27px;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  margin-top: 30px;
 }
 
 .label-input100 {
@@ -400,7 +409,7 @@ textarea.input100 {
 
 @media (max-width: 576px) {
   .wrap-contact100 {
-    padding: 72px 15px 65px 15px;
+    padding: 45px 15px 45px 15px;
   }
 }
 
