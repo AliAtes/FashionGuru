@@ -5,3 +5,5 @@ uvicorn
 python-multipart
 aiofiles
 aiohttp
+urllib3
+bs4
