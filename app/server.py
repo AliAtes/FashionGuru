@@ -10,6 +10,7 @@ import json
 import urllib3
 from bs4 import BeautifulSoup
 import logging
+from urllib.parse import quote
 
 model_file_url = 'https://github.com/AliAtes/DeepFashionKTE/blob/master/app/models/model.pth?raw=true'
 model_file_name = 'model'
@@ -68,7 +69,7 @@ def predict_from_bytes(bytes, radios):
     logging.warning("Radios+predictions: " + radios + " " + str(predictions[0][0]))
     logging.warning("https://www.google.com/search?q=" + radios + " " + str(predictions[0][0]) + "&tbm=shop")
     
-    radiosAndPrediction = str(radios) + " " + str(predictions[0][0])
+    radiosAndPrediction = quote(str(radios) + " " + str(predictions[0][0]))
     page = http.request('GET', 'https://www.google.com/search', fields={"q":radiosAndPrediction, "tbm":"shop"})
     
     soup = BeautifulSoup(page.data, 'html.parser')
