@@ -66,8 +66,9 @@ def predict_from_bytes(bytes, radios):
         radios = "jumpsuit"
     
     logging.warning("Radios+predictions: " + radios + " " + str(predictions[0][0]))
+    logging.warning("https://www.google.com/search?q=" + radios + " " + str(predictions[0][0]) + "&tbm=shop")
     
-    page = http.request('GET', 'https://www.google.com/search?q=' + radios + " " + str(predictions[0][0]) + '&tbm=shop')
+    page = http.request('GET', 'https://www.google.com/search?q=' + radios + ' ' + str(predictions[0][0]) + '&tbm=shop')
     
     soup = BeautifulSoup(page.data, 'html.parser')
     
