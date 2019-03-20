@@ -55,7 +55,7 @@ def predict_from_bytes(bytes):
     
     _,_,losses = learn.predict(img)
     predictions = sorted(zip(classes, map(float, losses)), key=lambda p: p[1], reverse=True)
-    logging.warning("predictions[0]: " + str(predictions[0][0])))
+    logging.warning("predictions[0]: " + str(predictions[0][0]))
     
     http = urllib3.PoolManager()
     page = http.request('GET', 'https://www.google.com/search?q=' + str(predictions[0])[0]) + '&tbm=shop')
