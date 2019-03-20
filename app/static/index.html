@@ -26,8 +26,18 @@
 <!--===============================================================================================-->
 
    <script>
-        function hideButton() {
+        function viewButtons() {
             document.getElementById('analiz-et').style.visibility = 'visible';
+            document.getElementById('radios').style.visibility = 'visible';
+        }
+        function radioButton() {
+            var o1 = document.getElementById('option1');
+            var o2 = document.getElementById('option2');
+            var o3 = document.getElementById('option3');
+
+            if (!o1.checked) o1.parentNode.removeChild(o1);
+            if (!o2.checked) o2.parentNode.removeChild(o2);
+            if (!o3.checked) o3.parentNode.removeChild(o3);
         }
     </script>
 
@@ -44,19 +54,16 @@
 
 
             <form class="contact100-form validate-form" action="/upload" method="post" enctype="multipart/form-data">
-                <div class="wrap-input100 validate-input" data-validate="jpg veya png kabul edilmektedir.">
 
-                    <div style="text-align:center;">
-                        <img style="width:100%" id='image-picked' class='no-display'>
-                    </div>
+                <div class="wrap-input100 validate-input" data-validate="jpg veya png kabul edilmektedir." style="margin-top:0;">
 
-                    <div id="resim-sec" class="container-contact100-form-btn" style="margin-top:20px;">
+                    <div id="resim-sec" class="container-contact100-form-btn" style="margin-top:20px;padding-top:0;">
                         <div class="wrap-contact100-form-btn">
                             <div class="contact100-form-bgbtn"></div>
 
-                            <label class="contact100-form-btn" style="margin-bottom:5px;margin-top:5px;" id="submit_btn" for="inp_file">
-                                <input id="inp_file" type="file" name="file" style="display:none;" onclick="hideButton();">
-                                <span class="btn-text">Ürün Seçiniz</span>
+                            <label class="contact100-form-btn" style="margin-bottom:5px;margin-top:5px;height:40px;" id="submit_btn" for="inp_file">
+                                <input id="inp_file" type="file" name="file" style="display:none;" oninput="viewButtons();">
+                                <span class="btn-text">Kıyafetinizi Yükleyiniz</span>
                                 <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
                             </label>
 
@@ -67,12 +74,30 @@
                     <span class="focus-input100"></span>
                 </div>
 
+                <br />
 
-                <div id="analiz-et" class="container-contact100-form-btn" style="visibility:hidden;">
+                <div style="text-align:center;">
+                    <img style="width:50%" id='image-picked' class='no-display'>
+                </div>
+
+                <div class="container text-center" id="radios" style="visibility:hidden;">
+                    <hr />
+                    <div class="btn-group">
+                        <input name="options" id="option1" value="kadin" type="radio" checked autocomplete="off">
+                        <label class="btn btn-primary" for="option1">Kadın Giyim</label>
+                        <input name="options" id="option2" value="erkek" type="radio" autocomplete="off">
+                        <label class="btn btn-primary" for="option2">Erkek Giyim</label>
+                        <input name="options" id="option3" value="cocuk" type="radio" autocomplete="off">
+                        <label class="btn btn-primary" for="option3">Çocuk Giyim</label>
+                    </div>
+                </div>
+
+                <div id="analiz-et" class="container-contact100-form-btn" style="visibility:hidden;" onloadeddata="end();">
+                    <hr>
                     <div class="wrap-contact100-form-btn">
                         <div class="contact100-form-bgbtn"></div>
-                        <button type="button" id="submit_btn" class="contact100-form-btn">
-                            <span class="btn-text">Göz At</span>
+                        <button type="submit" id="submit_btn" class="contact100-form-btn" onclick="radioButton();">
+                            <span class="btn-text">Tavsiyelere Bak</span>
                         </button>
                     </div>
                 </div>
