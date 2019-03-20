@@ -1,6 +1,21 @@
-
-
-
+.wrap-contact100 {
+  width: 90%;
+  padding: 50px;
+}
+.contact100-form-title {
+  padding-bottom: 25px;
+}
+.col-centered {
+  float: none;
+  margin: auto;
+}
+.card {
+  margin: auto;
+  margin-top: 20px;
+  padding:15px;
+  border: 1px solid #f7f7f7;
+  text-align: center;
+}
 
 /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
