@@ -13,7 +13,7 @@ import logging
 
 model_file_url = 'https://github.com/AliAtes/DeepFashionKTE/blob/master/app/models/model.pth?raw=true'
 model_file_name = 'model'
-classes = ['Blouse', 'Blazer', 'Button-Down', 'Bomber', 'Anorak', 'Tee', 'Tank', 'Top', 'Sweater', 'Flannel', 'Hoodie', 'Cardigan', 'Jacket', 'Henley', 'Poncho', 'Jersey', 'Turtleneck', 'Parka', 'Peacoat', 'Halter', 'Skirt', 'Shorts', 'Jeans', 'Joggers', 'Sweatpants', 'Jeggings', 'Cutoffs', 'Sweatshorts', 'Leggings', 'Culottes', 'Chinos', 'Trunks', 'Sarong', 'Gauchos', 'Jodhpurs', 'Capris', 'Dress', 'Romper', 'Coat', 'Kimono', 'Jumpsuit', 'Robe', 'Caftan', 'Kaftan', 'Coverup', 'Onesie']
+classes = ['bluz', 'blazer ceket', 'düğmeli giysi', 'bomber ceket', 'anorak', 'tshirt', 'sporcu atleti', 'üst', 'süveter', 'flanel gömlek', 'svetşört', 'uzun hırka', 'mont', 'triko tişört', 'panço', 'jarse', 'balıkçı yaka', 'parka', 'palto', 'askılı', 'etek', 'şort', 'kot', 'pantolon eşofman', 'eşofman altı', 'dar kesim pantolon', 'kot şort', 'Sweatshorts', 'tayt', 'pantolon etek', 'chino pantolon', 'erkek mayosu', 'sarong', 'bol paça kısa pantolon', 'binicilik pantolonu', 'kapri', 'elbise', 'tulum', 'kaban', 'kimono', 'bağcıklı tulum', 'sabahlık', 'kaftan', 'kaftan', 'şal elbise', 'pijama kostüm']
 
 path = Path(__file__).parent
 
@@ -46,11 +46,12 @@ PREDICTION_FILE_SRC = path/'static'/'predictions.txt'
 async def upload(request):
     data = await request.form()
     img_bytes = (data["img"])
-    logging.warning("data[img]: " + str(data["img"]))
+    radios = str(data["options"])
+    logging.warning("data[img]: " + str(data["img"]) + " radios: " + radios)
     bytes = base64.b64decode(img_bytes)
-    return predict_from_bytes(bytes)
+    return predict_from_bytes(bytes, radios)
 
-def predict_from_bytes(bytes):
+def predict_from_bytes(bytes, radios):
     img = open_image(BytesIO(bytes))
     
     _,_,losses = learn.predict(img)
@@ -58,7 +59,15 @@ def predict_from_bytes(bytes):
     logging.warning("predictions[0]: " + str(predictions[0][0]))
     
     http = urllib3.PoolManager()
-    page = http.request('GET', 'https://www.google.com/search?q=' + str(predictions[0][0]) + '&tbm=shop')
+    
+    if(radios == "erkek" && str(predictions[0][0]) == "elbise")
+        radios = "takım elbise"
+    else if(radios == "erkek" && str(predictions[0][0]) == "bağcıklı tulum")
+        radios = "jumpsuit"
+    
+    logging.warning("Radios+predictions: " + radios + " " + str(predictions[0][0]))
+    
+    page = http.request('GET', 'https://www.google.com/search?q=' + radios + " " + str(predictions[0][0]) + '&tbm=shop')
     
     soup = BeautifulSoup(page.data, 'html.parser')
     
