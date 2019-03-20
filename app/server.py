@@ -58,7 +58,7 @@ def predict_from_bytes(bytes):
     logging.warning("predictions[0]: " + str(predictions[0][0]))
     
     http = urllib3.PoolManager()
-    page = http.request('GET', 'https://www.google.com/search?q=' + str(predictions[0])[0]) + '&tbm=shop')
+    page = http.request('GET', 'https://www.google.com/search?q=' + str(predictions[0][0])) + '&tbm=shop')
     
     soup = BeautifulSoup(page.data, 'html.parser')
     
