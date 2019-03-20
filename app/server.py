@@ -7,6 +7,8 @@ from io import BytesIO
 from fastai.vision import *
 import base64
 import json
+import urllib3
+from bs4 import BeautifulSoup
 
 model_file_url = 'https://github.com/AliAtes/DeepFashionKTE/blob/master/app/models/model.pth?raw=true'
 model_file_name = 'model'
@@ -50,10 +52,20 @@ def predict_from_bytes(bytes):
     img = open_image(BytesIO(bytes))
     _,_,losses = learn.predict(img)
     predictions = sorted(zip(classes, map(float, losses)), key=lambda p: p[1], reverse=True)
+	http = urllib3.PoolManager()
+	page = http.request('GET', 'https://www.google.com/search?q=' + str(predictions[0]) + '&tbm=shop')
+	soup = BeautifulSoup(page.data, 'html.parser')
+	all_cards_html = null	
+	for tag in soup.find_all("div", attrs={'class': 'pslires'}):
+		link = tag.div.a['href']
+		image = tag.div.img['src']
+		info = tag.div.img['alt']
+		shop = tag.findChildren()[6].getText()
+		amount = tag.findChildren()[3].div.getText()
+		all_cards_html += ("<div class=\"col-6 col-sm-6 col-md-4 col-lg-3\" style=\"margin-top:20px;\"><a href=\"" + link + "\"><table style=\"text-align:center;\"><tr><td><img src=\"" + image + "\" /></td></tr><tr><td>" + info + " | " + shop + "</td></tr><tr><td>" + amount + "</td></tr></table></a></div>")
     result_html1 = path/'static'/'result1.html'
     result_html2 = path/'static'/'result2.html'
-    
-    result_html = str(result_html1.open().read() +str(predictions[0:3]) + result_html2.open().read())
+    result_html = str(result_html1.open().read() + all_cards_html + result_html2.open().read())
     return HTMLResponse(result_html)
 
 @app.route("/")
