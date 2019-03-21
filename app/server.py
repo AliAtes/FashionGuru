@@ -82,12 +82,10 @@ def predict_from_bytes(bytes, radios):
     prediction_tr1 = classes_tr[classes.index(predictions[0][0])]
     prediction_tr2 = classes_tr[classes.index(predictions[1][0])]
     prediction_tr3 = classes_tr[classes.index(predictions[2][0])]
-    analysis = str("{ " + radios + " " + predictions[0][0] + " (" + radios_tr + " " + prediction_tr1 + ") : [" + predictions[0][1] + "] }" + "<br>" +
-    "{ " + radios + " " + predictions[1][0] + " (" + radios_tr + " " + prediction_tr2 + ") : [" + predictions[1][1] + "] }" + "<br>" +
-    "{ " + radios + " " + predictions[2][0] + " (" + radios_tr + " " + prediction_tr3 + ") : [" + predictions[2][1] + "] }")
+    analysis = ("{ " + radios + " " + str(predictions[0][0]) + " (" + radios_tr + " " + prediction_tr1 + ") : [" + str(predictions[0][1]) + "] }" + "<br>" + "{ " + radios + " " + str(predictions[1][0]) + " (" + radios_tr + " " + prediction_tr2 + ") : [" + str(predictions[1][1]) + "] }" + "<br>" + "{ " + radios + " " + str(predictions[2][0]) + " (" + radios_tr + " " + prediction_tr3 + ") : [" + str(predictions[2][1]) + "] }")
     logging.warning(analysis)
     
-    radiosAndPrediction = quote(str(radios) + " " + str(predictions[0][0]))
+    radiosAndPrediction = quote(radios + " " + str(predictions[0][0]))
     logging.warning(radiosAndPrediction)
     
     page = http.request('GET', 'https://www.google.com.tr/search?q=' + radiosAndPrediction + '&tbm=shop')
