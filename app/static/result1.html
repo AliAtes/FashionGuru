@@ -2,8 +2,10 @@
 <head>
     <title>Fashion Guru</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="theme-color" content="#7400b3">
+    <meta name="msapplication-navbutton-color" content="#7400b3">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#7400b3">
 
 <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="static/images/icons/favicon.ico"/>
@@ -25,8 +27,28 @@
     <link rel="stylesheet" type="text/css" href="static/css/main.css">
 <!--===============================================================================================-->
 
+    <script>
+        var listOpen = true;
+        function listBox() {
+            var alertList = document.getElementById('alert-list');
+            var alertText = document.getElementById('alert-text').value;
+            alertList.innerHTML = alertText;
+            if (listOpen) {
+                alertList.setAttribute('class', 'alert alert-success alert-list alert-list-visible');
+                listOpen = false;
+            }
+            else {
+                alertList.setAttribute('class', 'alert alert-success alert-list alert-list-hidden');
+                listOpen = true;
+            }
+        }
+    </script>
+	
 </head>
 <body>
+	
+    <div id="alert-list" class="col-centered alert alert-success alert-list alert-list-hidden"></div>
+	
     <div class="container-contact100">
 
         <div class="wrap-contact100 main-bg">
@@ -37,6 +59,7 @@
                         <a href="/"><img style="width:100%;max-width:40px;" src="static/images/25694.png"></a>
                     </div>
                     <div class="contact100-form-title col-10">Beğenebileceğiniz Ürünler</div>
+                    <div class="col-2 col-centered" style="padding-left:0 !important; padding-right:0 !important;"><img onclick="listBox();" style="width:100%;max-width:40px;" src="images/list.png"></div>
                 </div>
             </div>
 
