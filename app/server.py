@@ -83,7 +83,6 @@ def predict_from_bytes(bytes, radios):
     prediction_tr2 = classes_tr[classes.index(predictions[1][0])]
     prediction_tr3 = classes_tr[classes.index(predictions[2][0])]
     analysis = str("{ " + radios + " " + str(predictions[0][0]) + " (" + radios_tr + " " + prediction_tr1 + ") : [" + str(round(predictions[0][1],2) + "] }" + "<br>" + "{ " + radios + " " + str(predictions[1][0]) + " (" + radios_tr + " " + prediction_tr2 + ") : [" + str(round(predictions[1][1],2)) + "] }" + "<br>" + "{ " + radios + " " + str(predictions[2][0]) + " (" + radios_tr + " " + prediction_tr3 + ") : [" + str(round(predictions[2][1],2)) + "] }")
-    logging.warning(analysis)
     
     radiosAndPrediction = quote(radios + " " + str(predictions[0][0]))
     logging.warning(radiosAndPrediction)
