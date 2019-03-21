@@ -69,9 +69,9 @@ def predict_from_bytes(bytes, radios):
     #elif(radios == "kadin"): radios = "kadın"
     #elif(radios == "cocuk"): radios = "çocuk"
     
-    if(radios == "erkek") radios = "men"
-    elif(radios == "kadin") radios = "women"
-    elif(radios == "cocuk") radios = "boy"
+    if(radios == "erkek"): radios = "men"
+    elif(radios == "kadin"): radios = "women"
+    elif(radios == "cocuk"): radios = "boy"
     
     radiosAndPrediction = quote(str(radios) + " " + str(predictions[0][0]))
     logging.warning(radiosAndPrediction)
