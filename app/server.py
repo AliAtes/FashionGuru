@@ -14,7 +14,7 @@ from urllib.parse import quote
 
 model_file_url = 'https://github.com/AliAtes/DeepFashionKTE/blob/master/app/models/model.pth?raw=true'
 model_file_name = 'model'
-classes = ['bluz', 'blazer ceket', 'düğmeli giysi', 'bomber ceket', 'anorak', 'tshirt', 'sporcu atleti', 'üst', 'süveter', 'flanel gömlek', 'svetşört', 'uzun hırka', 'mont', 'triko tişört', 'panço', 'jarse', 'balıkçı yaka', 'parka', 'palto', 'askılı', 'etek', 'şort', 'kot', 'pantolon eşofman', 'eşofman altı', 'dar kesim pantolon', 'kot şort', 'Sweatshorts', 'tayt', 'pantolon etek', 'chino pantolon', 'erkek mayosu', 'sarong', 'bol paça kısa pantolon', 'binicilik pantolonu', 'kapri', 'elbise', 'tulum', 'kaban', 'kimono', 'bağcıklı tulum', 'sabahlık', 'kaftan', 'kaftan', 'şal elbise', 'pijama kostüm']
+classes = ['bluz', 'blazer ceket', 'düğmeli giysi', 'bomber ceket', 'anorak', 'tişört', 'sporcu atleti', 'üst', 'süveter', 'flanel gömlek', 'svetşört', 'uzun hırka', 'mont', 'triko tişört', 'panço', 'jarse', 'balıkçı yaka', 'parka', 'palto', 'askılı', 'etek', 'şort', 'kot', 'pantolon eşofman', 'eşofman altı', 'dar kesim pantolon', 'kot şort', 'sweatshorts', 'tayt', 'pantolon etek', 'chino pantolon', 'erkek mayosu', 'sarong', 'bol paça kısa pantolon', 'binicilik pantolonu', 'kapri', 'elbise', 'tulum', 'kaban', 'kimono', 'bağcıklı tulum', 'sabahlık', 'kaftan', 'kaftan', 'şal elbise', 'pijama kostüm']
 
 path = Path(__file__).parent
 
@@ -48,7 +48,7 @@ async def upload(request):
     data = await request.form()
     img_bytes = (data["img"])
     radios = str(data["options"])
-    logging.warning("data[img]: " + str(data["img"]) + " radios: " + radios)
+    logging.warning("radios: " + radios)
     bytes = base64.b64decode(img_bytes)
     return predict_from_bytes(bytes, radios)
 
@@ -61,10 +61,13 @@ def predict_from_bytes(bytes, radios):
     
     http = urllib3.PoolManager()
     
-    if(radios == "erkek" and str(predictions[0][0]) == "elbise"):
-        radios = "takım elbise"
-    elif(radios == "erkek" and str(predictions[0][0]) == "bağcıklı tulum"):
-        radios = "jumpsuit"
+    if(radios == "erkek"):
+        if(str(predictions[0][0]) == "elbise"):
+            radios = "takım elbise"
+        elif(str(predictions[0][0]) == "bağcıklı tulum"):
+            radios = "jumpsuit"
+    elif(radios == "kadin"): radios = "kadın"
+    elif(radios == "cocuk"): radios = "çocuk"
     
     radiosAndPrediction = quote(str(radios) + " " + str(predictions[0][0]))
     logging.warning(radiosAndPrediction)
