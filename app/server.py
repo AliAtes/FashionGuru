@@ -14,7 +14,7 @@ from urllib.parse import quote
 
 model_file_url = 'https://github.com/AliAtes/DeepFashionKTE/blob/master/app/models/model.pth?raw=true'
 model_file_name = 'model'
-classes = ['bluz', 'blazer ceket', 'düğmeli giysi', 'bomber ceket', 'anorak', 'tişört', 'sporcu atleti', 'üst', 'süveter', 'flanel gömlek', 'svetşört', 'uzun hırka', 'mont', 'triko tişört', 'panço', 'jarse', 'balıkçı yaka', 'parka', 'palto', 'askılı', 'etek', 'şort', 'kot', 'pantolon eşofman', 'eşofman altı', 'dar kesim pantolon', 'kot şort', 'sweatshorts', 'tayt', 'pantolon etek', 'chino pantolon', 'erkek mayosu', 'sarong', 'bol paça kısa pantolon', 'binicilik pantolonu', 'kapri', 'elbise', 'tulum', 'kaban', 'kimono', 'bağcıklı tulum', 'sabahlık', 'kaftan', 'kaftan', 'şal elbise', 'pijama kostüm']
+classes = ['Blouse', 'Blazer', 'Button-Down', 'Bomber', 'Anorak', 'Tee', 'Tank', 'Top', 'Sweater', 'Flannel', 'Hoodie', 'Cardigan', 'Jacket', 'Henley', 'Poncho', 'Jersey', 'Turtleneck', 'Parka', 'Peacoat', 'Halter', 'Skirt', 'Shorts', 'Jeans', 'Joggers', 'Sweatpants', 'Jeggings', 'Cutoffs', 'Sweatshorts', 'Leggings', 'Culottes', 'Chinos', 'Trunks', 'Sarong', 'Gauchos', 'Jodhpurs', 'Capris', 'Dress', 'Romper', 'Coat', 'Kimono', 'Jumpsuit', 'Robe', 'Caftan', 'Kaftan', 'Coverup', 'Onesie']
 
 path = Path(__file__).parent
 
@@ -61,15 +61,19 @@ def predict_from_bytes(bytes, radios):
     
     http = urllib3.PoolManager()
     
-    if(radios == "erkek"):
+    """if(radios == "erkek"):
         if(str(predictions[0][0]) == "elbise"):
             radios = "takım elbise"
         elif(str(predictions[0][0]) == "bağcıklı tulum"):
             radios = "jumpsuit"
     elif(radios == "kadin"): radios = "kadın"
-    elif(radios == "cocuk"): radios = "çocuk"
+    elif(radios == "cocuk"): radios = "çocuk""""
     
-    radiosAndPrediction = quote(str(radios) + " " + str(predictions[0][0]) + " türkiye")
+    if(radios == "erkek") radios = "men"
+    elif(radios == "kadin") radios = "women"
+    elif(radios == "cocuk") radios = "boy"
+    
+    radiosAndPrediction = quote(str(radios) + " " + str(predictions[0][0]))
     logging.warning(radiosAndPrediction)
     
     page = http.request('GET', 'https://www.google.com.tr/search?q=' + radiosAndPrediction + '&tbm=shop')
