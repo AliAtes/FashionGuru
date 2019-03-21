@@ -69,7 +69,7 @@ def predict_from_bytes(bytes, radios):
     elif(radios == "kadin"): radios = "kadın"
     elif(radios == "cocuk"): radios = "çocuk"
     
-    radiosAndPrediction = quote(str(radios) + " " + str(predictions[0][0]))
+    radiosAndPrediction = quote(str(radios) + " " + str(predictions[0][0]) + " türkiye")
     logging.warning(radiosAndPrediction)
     
     page = http.request('GET', 'https://www.google.com/search?q=' + radiosAndPrediction + '&tbm=shop')
