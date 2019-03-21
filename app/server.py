@@ -61,13 +61,13 @@ def predict_from_bytes(bytes, radios):
     
     http = urllib3.PoolManager()
     
-    """if(radios == "erkek"):
-        if(str(predictions[0][0]) == "elbise"):
-            radios = "takım elbise"
-        elif(str(predictions[0][0]) == "bağcıklı tulum"):
-            radios = "jumpsuit"
-    elif(radios == "kadin"): radios = "kadın"
-    elif(radios == "cocuk"): radios = "çocuk""""
+    #if(radios == "erkek"):
+     #   if(str(predictions[0][0]) == "elbise"):
+      #      radios = "takım elbise"
+       # elif(str(predictions[0][0]) == "bağcıklı tulum"):
+        #    radios = "jumpsuit"
+    #elif(radios == "kadin"): radios = "kadın"
+    #elif(radios == "cocuk"): radios = "çocuk"
     
     if(radios == "erkek") radios = "men"
     elif(radios == "kadin") radios = "women"
