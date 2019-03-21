@@ -74,7 +74,6 @@ def predict_from_bytes(bytes, radios):
     if(radios == "Men"): radios_tr = "Erkek"
     elif(radios == "Women"): radios_tr = "Kadın"
     elif(radios == "Boy"): radios_tr = "Çocuk"
-        
     
     # { Men Tee (Erkek Tişört) : [0.98546] }
     # { Men Top (Erkek Üst) : [0.0123455] }
@@ -86,7 +85,7 @@ def predict_from_bytes(bytes, radios):
     analysis = str("{ " + radios + " " + predictions[0][0] + " (" + radios_tr + " " + prediction_tr1 + ") : [" + predictions[0][1] + "] }" + "<br>" +
     "{ " + radios + " " + predictions[1][0] + " (" + radios_tr + " " + prediction_tr2 + ") : [" + predictions[1][1] + "] }" + "<br>" +
     "{ " + radios + " " + predictions[2][0] + " (" + radios_tr + " " + prediction_tr3 + ") : [" + predictions[2][1] + "] }")
-    
+    logging.warning(analysis)
     
     radiosAndPrediction = quote(str(radios) + " " + str(predictions[0][0]))
     logging.warning(radiosAndPrediction)
@@ -104,7 +103,8 @@ def predict_from_bytes(bytes, radios):
     	amount = tag.findChildren()[3].div.getText()
     	all_cards_html += ("<div class=\"col-6 col-sm-6 col-md-4 col-lg-3 col-centered text-center card\"><div><a href=\"" + link + "\"><img style=\"width:100%; margin-bottom:5px;\" src=\"" + image + "\" /></a></div><div>" + info + "<br />" + shop + "<br />" + amount + "</div></div>")
     
-    all_cards_html += ("<!-- predictions: { " + "[" + str(predictions[0][0]) + " - " + str(predictions[0][1]) + "], " + "[" + str(predictions[1][0]) + " - " + str(predictions[1][1]) + "], " + "[" + str(predictions[2][0]) + " - " + str(predictions[2][1]) + "]" + " }-->")
+    #all_cards_html += ("<!-- predictions: { " + "[" + str(predictions[0][0]) + " - " + str(predictions[0][1]) + "], " + "[" + str(predictions[1][0]) + " - " + str(predictions[1][1]) + "], " + "[" + str(predictions[2][0]) + " - " + str(predictions[2][1]) + "]" + " }-->")
+    all_cards_html += ("<input type=\"hidden\"  value=\"" + analysis + "\" />")
     logging.warning("all_cards_html: " + all_cards_html)
     
     result_html1 = path/'static'/'result1.html'
