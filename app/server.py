@@ -72,7 +72,7 @@ def predict_from_bytes(bytes, radios):
     radiosAndPrediction = quote(str(radios) + " " + str(predictions[0][0]) + " türkiye")
     logging.warning(radiosAndPrediction)
     
-    page = http.request('GET', 'https://www.google.com/search?q=' + radiosAndPrediction + '&tbm=shop')
+    page = http.request('GET', 'https://www.google.com.tr/search?q=' + radiosAndPrediction + '&tbm=shop')
     
     soup = BeautifulSoup(page.data, 'html.parser')
     
