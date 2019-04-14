@@ -65,7 +65,7 @@ async def upload(request):
             break
             
     exif=image._getexif()
-    logging.warning("exif[orientation]: " + exif[orientation])
+    logging.warning("exif[orientation]: " + exif)
     
     if exif[orientation] == 3:
         image=image.rotate(180, expand=True)
