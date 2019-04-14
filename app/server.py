@@ -12,6 +12,8 @@ from bs4 import BeautifulSoup
 import logging
 from urllib.parse import quote
 from PIL import Image, ExifTags
+import re
+import cStringIO
 
 model_file_url = 'https://github.com/AliAtes/DeepFashionKTE/blob/master/app/models/model.pth?raw=true'
 model_file_name = 'model'
