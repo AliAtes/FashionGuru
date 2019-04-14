@@ -7,3 +7,5 @@ aiofiles
 aiohttp
 urllib3
 bs4
+cv2
+scipy
