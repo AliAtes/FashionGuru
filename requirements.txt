@@ -7,5 +7,3 @@ aiofiles
 aiohttp
 urllib3
 bs4
-opencv-python
-scipy
