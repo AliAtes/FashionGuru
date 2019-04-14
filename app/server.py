@@ -56,53 +56,25 @@ async def upload(request):
     data = await request.form()
     #img_bytes = (data["img"])
     
-    img_before = cv2.imread(data["img"])
-    cv2.imshow("Before", img_before)    
-    key = cv2.waitKey(0)
-    img_gray = cv2.cvtColor(img_before, cv2.COLOR_BGR2GRAY)
-    img_edges = cv2.Canny(img_gray, 100, 100, apertureSize=3)
-    lines = cv2.HoughLinesP(img_edges, 1, math.pi / 180.0, 100, minLineLength=100, maxLineGap=5)
-    
-    angles = []
-    for x1, y1, x2, y2 in lines[0]:
-        cv2.line(img_before, (x1, y1), (x2, y2), (255, 0, 0), 3)
-        angle = math.degrees(math.atan2(y2 - y1, x2 - x1))
-        angles.append(angle)
-        
-    median_angle = np.median(angles)
-    img_rotated = ndimage.rotate(img_before, median_angle)
-    logging.warning("Angle is {}" + median_angle)
-    
-    """base64_data = re.sub('^data:image/.+;base64,', '', data['img'])
-    byte_data = base64.b64decode(base64_data)
-    logging.warning("0-byte_data: " + str(byte_data))
+    byte_data = base64.b64decode(data['img'])
     image_data = BytesIO(byte_data)
-    logging.warning("1-age.open(image_data): " + str(image_data))
-    image = Image.open(image_data)
-    logging.warning("2-image: " + str(image))
-    image.save("predictImg.jpg")
-    image.close()
+    img = Image.open(image_data)
     
-    for orientation in ExifTags.TAGS.keys():
-        if ExifTags.TAGS[orientation]=='Orientation':
-            break
-            
-    img = Image.open("predictImg.jpg")
-    exif=dict(img._getexif().items())
-    logging.warning("exif: " + exif)
-    logging.warning("exif[orientation]: " + exif[orientation])
-    
-    if exif[orientation] == 3:
-        img=img.rotate(180, expand=True)
-    elif exif[orientation] == 6:
-        img=img.rotate(270, expand=True)
-    elif exif[orientation] == 8:
-        img=img.rotate(90, expand=True)
-    img.close()"""
+    for tag, value in info.items():
+        key = TAGS.get(tag)
+        if key == 'Orientation':
+            logging.warning(key + ': ' + str(value))
+            if str(value) == 3:
+                img=img.rotate(180, expand=True)
+            elif str(value) == 6:
+                img=img.rotate(270, expand=True)
+            elif str(value) == 8:
+                img=img.rotate(90, expand=True)
+            img.close()
     
     radios = str(data["options"])
     logging.warning("radios: " + radios)
-    bytes = base64.b64decode(img_rotated)
+    bytes = base64.b64decode(img)
     return predict_from_bytes(bytes, radios)
 
 def predict_from_bytes(bytes, radios):
