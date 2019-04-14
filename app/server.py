@@ -50,30 +50,25 @@ async def upload(request):
     data = await request.form()
     img_bytes = (data["img"])
     
-    try:
-        image=Image.open(img_bytes)
-        for orientation in ExifTags.TAGS.keys():
-            if ExifTags.TAGS[orientation]=='Orientation':
-                break
-        
-        exif=dict(image._getexif().items())
-        logging.warning("exif[orientation]: " + exif[orientation])
-        
-        if exif[orientation] == 3:
-            image=image.rotate(180, expand=True)
-        elif exif[orientation] == 6:
-            image=image.rotate(270, expand=True)
-        elif exif[orientation] == 8:
-            image=image.rotate(90, expand=True)
-        image.close()
-    except (AttributeError, KeyError, IndexError):
-        logging.warning("Image don't have getexif.")
-        pass
+    image=Image.open(BytesIO(base64.b64decode(img_bytes)))
+    for orientation in ExifTags.TAGS.keys():
+        if ExifTags.TAGS[orientation]=='Orientation':
+            break
+    exif=dict(image._getexif().items())
+    logging.warning("exif[orientation]: " + exif[orientation])
+    
+    if exif[orientation] == 3:
+        image=image.rotate(180, expand=True)
+    elif exif[orientation] == 6:
+        image=image.rotate(270, expand=True)
+    elif exif[orientation] == 8:
+        image=image.rotate(90, expand=True)
+    image.close()
     
     radios = str(data["options"])
     logging.warning("radios: " + radios)
-    bytes = base64.b64decode(image)
-    return predict_from_bytes(bytes, radios)
+    #bytes = base64.b64decode(image)
+    return predict_from_bytes(image, radios)
 
 def predict_from_bytes(bytes, radios):
     img = open_image(BytesIO(bytes))
