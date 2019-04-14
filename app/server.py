@@ -14,10 +14,6 @@ from urllib.parse import quote
 from PIL import Image, ExifTags
 import re
 from io import StringIO
-import numpy as np
-import cv2
-import math
-from scipy import ndimage
 
 model_file_url = 'https://github.com/AliAtes/DeepFashionKTE/blob/master/app/models/model.pth?raw=true'
 model_file_name = 'model'
