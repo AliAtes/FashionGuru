@@ -54,7 +54,7 @@ async def upload(request):
     for orientation in ExifTags.TAGS.keys():
         if ExifTags.TAGS[orientation]=='Orientation':
             break
-    exif=dict(image._getexif().items())
+    exif=dict(image._getexif())
     logging.warning("exif[orientation]: " + exif[orientation])
     
     if exif[orientation] == 3:
