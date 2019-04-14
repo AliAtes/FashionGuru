@@ -14,6 +14,10 @@ from urllib.parse import quote
 from PIL import Image, ExifTags
 import re
 from io import StringIO
+import numpy as np
+import cv2
+import math
+from scipy import ndimage
 
 model_file_url = 'https://github.com/AliAtes/DeepFashionKTE/blob/master/app/models/model.pth?raw=true'
 model_file_name = 'model'
@@ -52,7 +56,24 @@ async def upload(request):
     data = await request.form()
     #img_bytes = (data["img"])
     
-    base64_data = re.sub('^data:image/.+;base64,', '', data['img'])
+    img_before = cv2.imread(data["img"])
+    cv2.imshow("Before", img_before)    
+    key = cv2.waitKey(0)
+    img_gray = cv2.cvtColor(img_before, cv2.COLOR_BGR2GRAY)
+    img_edges = cv2.Canny(img_gray, 100, 100, apertureSize=3)
+    lines = cv2.HoughLinesP(img_edges, 1, math.pi / 180.0, 100, minLineLength=100, maxLineGap=5)
+    
+    angles = []
+    for x1, y1, x2, y2 in lines[0]:
+        cv2.line(img_before, (x1, y1), (x2, y2), (255, 0, 0), 3)
+        angle = math.degrees(math.atan2(y2 - y1, x2 - x1))
+        angles.append(angle)
+        
+    median_angle = np.median(angles)
+    img_rotated = ndimage.rotate(img_before, median_angle)
+    logging.warning("Angle is {}" + median_angle)
+    
+    """base64_data = re.sub('^data:image/.+;base64,', '', data['img'])
     byte_data = base64.b64decode(base64_data)
     logging.warning("0-byte_data: " + str(byte_data))
     image_data = BytesIO(byte_data)
@@ -77,12 +98,12 @@ async def upload(request):
         img=img.rotate(270, expand=True)
     elif exif[orientation] == 8:
         img=img.rotate(90, expand=True)
-    img.close()
+    img.close()"""
     
     radios = str(data["options"])
     logging.warning("radios: " + radios)
-    #bytes = base64.b64decode(image)
-    return predict_from_bytes(img, radios)
+    bytes = base64.b64decode(img_rotated)
+    return predict_from_bytes(bytes, radios)
 
 def predict_from_bytes(bytes, radios):
     img = open_image(BytesIO(bytes))
