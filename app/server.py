@@ -52,8 +52,10 @@ async def upload(request):
     data = await request.form()
     #img_bytes = (data["img"])
     
-    image_data = re.sub('^data:image/.+;base64,', '', data['img']).decode('base64')
-    image = Image.open(StringIO(image_data))
+    base64_data = re.sub('^data:image/.+;base64,', '', data['img'])
+    byte_data = base64.b64decode(base64_data)
+    image_data = BytesIO(byte_data)
+    image = Image.open(image_data)
     
     for orientation in ExifTags.TAGS.keys():
         if ExifTags.TAGS[orientation]=='Orientation':
