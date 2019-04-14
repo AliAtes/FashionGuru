@@ -59,26 +59,30 @@ async def upload(request):
     logging.warning("1-age.open(image_data): " + str(image_data))
     image = Image.open(image_data)
     logging.warning("2-image: " + str(image))
+    image.save("predictImg.jpg")
+    image.close()
     
     for orientation in ExifTags.TAGS.keys():
         if ExifTags.TAGS[orientation]=='Orientation':
             break
             
-    exif=image._getexif()
-    logging.warning("exif[orientation]: " + exif)
+    img = Image.open("predictImg.jpg")
+    exif=dict(img._getexif().items())
+    logging.warning("exif: " + exif)
+    logging.warning("exif[orientation]: " + exif[orientation])
     
     if exif[orientation] == 3:
-        image=image.rotate(180, expand=True)
+        img=img.rotate(180, expand=True)
     elif exif[orientation] == 6:
-        image=image.rotate(270, expand=True)
+        img=img.rotate(270, expand=True)
     elif exif[orientation] == 8:
-        image=image.rotate(90, expand=True)
-    image.close()
+        img=img.rotate(90, expand=True)
+    img.close()
     
     radios = str(data["options"])
     logging.warning("radios: " + radios)
     #bytes = base64.b64decode(image)
-    return predict_from_bytes(image, radios)
+    return predict_from_bytes(img, radios)
 
 def predict_from_bytes(bytes, radios):
     img = open_image(BytesIO(bytes))
