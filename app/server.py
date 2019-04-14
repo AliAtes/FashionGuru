@@ -54,6 +54,7 @@ async def upload(request):
     
     base64_data = re.sub('^data:image/.+;base64,', '', data['img'])
     byte_data = base64.b64decode(base64_data)
+    logging.warning("0-byte_data: " + str(byte_data))
     image_data = BytesIO(byte_data)
     logging.warning("1-age.open(image_data): " + str(image_data))
     image = Image.open(image_data)
@@ -62,7 +63,8 @@ async def upload(request):
     for orientation in ExifTags.TAGS.keys():
         if ExifTags.TAGS[orientation]=='Orientation':
             break
-    exif=dict(image._getexif())
+            
+    exif=image._getexif()
     logging.warning("exif[orientation]: " + exif[orientation])
     
     if exif[orientation] == 3:
