@@ -13,7 +13,7 @@ import logging
 from urllib.parse import quote
 from PIL import Image, ExifTags
 import re
-import cStringIO
+import StringIO
 
 model_file_url = 'https://github.com/AliAtes/DeepFashionKTE/blob/master/app/models/model.pth?raw=true'
 model_file_name = 'model'
@@ -53,7 +53,7 @@ async def upload(request):
     #img_bytes = (data["img"])
     
     image_data = re.sub('^data:image/.+;base64,', '', data['img']).decode('base64')
-    image = Image.open(cStringIO.StringIO(image_data))
+    image = Image.open(StringIO(image_data))
     
     for orientation in ExifTags.TAGS.keys():
         if ExifTags.TAGS[orientation]=='Orientation':
