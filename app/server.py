@@ -50,27 +50,11 @@ PREDICTION_FILE_SRC = path/'static'/'predictions.txt'
 @app.route("/upload", methods=["POST"])
 async def upload(request):
     data = await request.form()
-    #img_bytes = (data["img"])
-    
-    byte_data = base64.b64decode(data['img'])
-    image_data = BytesIO(byte_data)
-    img = Image.open(image_data)
-    
-    for tag, value in info.items():
-        key = TAGS.get(tag)
-        if key == 'Orientation':
-            logging.warning(key + ': ' + str(value))
-            if str(value) == 3:
-                img=img.rotate(180, expand=True)
-            elif str(value) == 6:
-                img=img.rotate(270, expand=True)
-            elif str(value) == 8:
-                img=img.rotate(90, expand=True)
-            img.close()
-    
+    logging.warning("data[img]: " + data["img"])
+    img_bytes = data["img"]
     radios = str(data["options"])
     logging.warning("radios: " + radios)
-    bytes = base64.b64decode(img)
+    bytes = base64.b64decode(img_bytes)
     return predict_from_bytes(bytes, radios)
 
 def predict_from_bytes(bytes, radios):
