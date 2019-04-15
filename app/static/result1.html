@@ -42,63 +42,6 @@
                 listOpen = true;
             }
         }
-	    
-		// from http://stackoverflow.com/a/32490603
-		function getOrientation(file, callback) {
-		  var reader = new FileReader();
-
-		  reader.onload = function(event) {
-			var view = new DataView(event.target.result);
-
-			if (view.getUint16(0, false) != 0xFFD8) return callback(-2);
-
-			var length = view.byteLength,
-			offset = 2;
-
-			while (offset < length) {
-			  var marker = view.getUint16(offset, false);
-			  offset += 2;
-
-			  if (marker == 0xFFE1) {
-			if (view.getUint32(offset += 2, false) != 0x45786966) {
-			  return callback(-1);
-			}
-			var little = view.getUint16(offset += 6, false) == 0x4949;
-			offset += view.getUint32(offset + 4, little);
-			var tags = view.getUint16(offset, little);
-			offset += 2;
-
-			for (var i = 0; i < tags; i++)
-			  if (view.getUint16(offset + (i * 12), little) == 0x0112)
-				return callback(view.getUint16(offset + (i * 12) + 8, little));
-			  }
-			  else if ((marker & 0xFF00) != 0xFF00) break;
-			  else offset += view.getUint16(offset, false);
-			}
-			return callback(-1);
-		  };
-
-		  reader.readAsArrayBuffer(file.slice(0, 64 * 1024));
-		};
-
-		document.addEventListener('DOMContentLoaded', function(event) {
-			
-			image = document.getElementById('saved_image');
-			image.onload = function(event) {
-				getOrientation(image, function(orientation) {
-					alert(orientation);
-
-					if(orientation == 3)
-						image.setAttribute('style','transform:rotate(180deg)');
-					else if(orientation == 6){
-						image.setAttribute('style','transform:rotate(90deg)');
-					}
-					else if(orientation == 8){
-						image.setAttribute('style','transform:rotate(-90deg)');
-					}
-					});
-				};
-		})
     </script>
 	
 </head>
@@ -122,16 +65,16 @@
                 </div>
             </div>
 
-            <br />
+            <!--<br />-->
 
             <!-- <img src="saved_image.png"> -->
-            <div class="container">
+            <!--<div class="container">
                 <div class="row" style="text-align:center;">
                     <div class="col10 col-sm-6 col-md-4 col-lg-2 col-centered text-center" style="margin-bottom:30px;">
                         <img src="" id="saved_image" style="width:50%;" />
                     </div>
                 </div>
-            </div>
+            </div>-->
 
             <div class="wrap-input100 validate-input">
 
