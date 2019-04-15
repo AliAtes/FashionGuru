@@ -91,27 +91,25 @@
 				document.getElementById('img_ori_id').setAttribute('value', orientation);
 
 				image = document.getElementById('image-picked');
-				img_w = (image.width).toString();
-				img_h = (image.height).toString();
-				alert(img_w + ',' + img_h);
-				img_td = document.getElementById('img_td');
 
 				if(orientation == 3)
 					image.setAttribute('style','transform:rotate(180deg)');
 				else if(orientation == 6){
 					image.setAttribute('style','transform:rotate(90deg)');
-					img_td.setAttribute('width', img_h);
-					img_td.setAttribute('height', img_w);
 				}
 				else if(orientation == 8){
 					image.setAttribute('style','transform:rotate(-90deg)');
-					img_td.setAttribute('width', img_h);
-					img_td.setAttribute('height', img_w);
 				}
 	        });
 	    };
 	})
-	   
+	 
+	function resize(){
+		image = document.getElementById('image-picked');
+		alert(image.width + ',' + image.height);
+		img_td.setAttribute('width', image.width);
+		img_td.setAttribute('height', image.height);		
+	}  
     </script>
 
 </head>
@@ -155,7 +153,7 @@
 					<tr>
 						<td id="img_td">
 							<div id="img_con" style="text-align:center;">
-								<img style="width:50%" id='image-picked' class='no-display'>
+								<img onload="resize();" style="width:50%" id='image-picked' class='no-display'>
 							</div>
 						</td>
 					</tr>
