@@ -83,14 +83,22 @@
 	};
 
 	document.addEventListener('DOMContentLoaded', function(event) {
-  	  var fileInput = document.getElementById("inp_file");
-  	  fileInput.onchange = function(event) {
-	  var file = event.target.files[0];
-	    getOrientation(file, function(orientation) {
-	    alert(orientation);
-	  });
-	};
-})
+  	    var fileInput = document.getElementById("inp_file");
+  	    fileInput.onchange = function(event) {
+	        var file = event.target.files[0];
+	            getOrientation(file, function(orientation) {
+			alert(orientation);
+			document.getElementById('img_ori_id').setAttribute('value', orientation);
+			image = document.getElementById('image-picked');
+	                if(orientation == 3)
+			    image.setAttribute('style','transform:rotate(180deg)');
+			else if(orientation == 6)
+			    image.setAttribute('style','transform:rotate(90deg)');
+			else if(orientation == 8)
+			    image.setAttribute('style','transform:rotate(-90deg)');
+	        });
+	    };
+	})
 	   
     </script>
 
@@ -124,6 +132,7 @@
                     </div>
 
                     <input id="inp_img" type="hidden" name="img" value="">
+		    <input id="img_ori_id" type="hidden" name="img_ori" value="">
                     <span class="focus-input100"></span>
                 </div>
 
