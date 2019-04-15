@@ -89,13 +89,20 @@
 	            getOrientation(file, function(orientation) {
 			alert(orientation);
 			document.getElementById('img_ori_id').setAttribute('value', orientation);
+			
+			img_con = document.getElementById('img_con');
 			image = document.getElementById('image-picked');
+			
 	                if(orientation == 3)
 			    image.setAttribute('style','transform:rotate(180deg)');
-			else if(orientation == 6)
+			else if(orientation == 6){
 			    image.setAttribute('style','transform:rotate(90deg)');
-			else if(orientation == 8)
+			    img_con.setAttribute('style', 'height:' + image.width + ';' + 'margin-left:-40%;');
+			}
+			else if(orientation == 8){
 			    image.setAttribute('style','transform:rotate(-90deg)');
+			    img_con.setAttribute('style', 'height:' + image.width + ';' + 'margin-left:-40%;');
+			}
 	        });
 	    };
 	})
@@ -138,7 +145,7 @@
 
                 <br />
 
-                <div style="text-align:center;">
+                <div id="img_con" style="text-align:center;">
                     <img style="width:50%" id='image-picked' class='no-display'>
                 </div>
 
