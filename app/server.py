@@ -64,7 +64,7 @@ async def upload(request):
     elif(img_ori == 8):
     	img = img.rotate(-90)
     
-    logging.warning("imgByte: " + str(imgByte))
+    logging.warning("img: " + str(img))
     logging.warning("img_ori: " + img_ori)
     
     imgByteArr = io.BytesIO()
