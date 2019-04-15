@@ -3,17 +3,16 @@ from starlette.responses import HTMLResponse
 from starlette.staticfiles import StaticFiles
 from starlette.middleware.cors import CORSMiddleware
 import uvicorn, aiohttp, asyncio
-from io import BytesIO
 from fastai.vision import *
-import base64
 import json
 import urllib3
 from bs4 import BeautifulSoup
 import logging
 from urllib.parse import quote
 from PIL import Image, ExifTags
-import re
 from io import StringIO
+from io import BytesIO
+import base64
 
 model_file_url = 'https://github.com/AliAtes/DeepFashionKTE/blob/master/app/models/model.pth?raw=true'
 model_file_name = 'model'
@@ -50,14 +49,25 @@ PREDICTION_FILE_SRC = path/'static'/'predictions.txt'
 @app.route("/upload", methods=["POST"])
 async def upload(request):
     data = await request.form()
-    #logging.warning("data[img]: " + data["img"])
-    img_bytes = data["img"]
-    img_ori_id = data["img_ori_id"]
-    logging.warning("img_ori_id: " + img_ori_id)
+    
+    img_base64 = data["img"]
+    img_ori = data["img_ori"]
     radios = str(data["options"])
-    #logging.warning("radios: " + radios)
-    bytes = base64.b64decode(img_bytes)
-    return predict_from_bytes(bytes, radios)
+    
+    img = Image.open(BytesIO(base64.b64decode(img_base64)))
+    
+    if(img_ori == 3):
+        img = img.rotate(180)
+	elif(img_ori == 6):
+	    img = img.rotate(90)
+	elif(img_ori == 8):
+	    img = img.rotate(-90)
+    
+    logging.warning("img: " + str(img))
+    logging.warning("img_ori: " + img_ori)
+    
+    imgbytes = base64.b64decode(img)
+    return predict_from_bytes(imgbytes, radios)
 
 def predict_from_bytes(bytes, radios):
     img = open_image(BytesIO(bytes))
