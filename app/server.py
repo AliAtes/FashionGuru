@@ -54,20 +54,20 @@ async def upload(request):
     img_ori = data["img_ori"]
     radios = str(data["options"])
     
-    img = Image.open(BytesIO(base64.b64decode(img_base64)))
+    imgByte = Image.open(BytesIO(base64.b64decode(img_base64)))
     
     if(img_ori == 3):
-    	img = img.rotate(180)
+    	imgByte = imgByte.rotate(180)
     if(img_ori == 6):
-    	img = img.rotate(90)
+    	imgByte = imgByte.rotate(90)
     elif(img_ori == 8):
-    	img = img.rotate(-90)
+    	imgByte = imgByte.rotate(-90)
     
-    logging.warning("img: " + str(img))
+    logging.warning("imgByte: " + str(imgByte))
     logging.warning("img_ori: " + img_ori)
     
-    imgbytes = base64.b64decode(img)
-    return predict_from_bytes(imgbytes, radios)
+    #imgbytes = base64.b64decode(img)
+    return predict_from_bytes(imgByte, radios)
 
 def predict_from_bytes(bytes, radios):
     img = open_image(BytesIO(bytes))
