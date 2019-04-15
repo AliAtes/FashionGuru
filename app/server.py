@@ -10,6 +10,7 @@ from bs4 import BeautifulSoup
 import logging
 from urllib.parse import quote
 from PIL import Image, ExifTags
+import io
 from io import StringIO
 from io import BytesIO
 import base64
@@ -54,23 +55,31 @@ async def upload(request):
     img_ori = data["img_ori"]
     radios = str(data["options"])
     
-    imgByte = Image.open(BytesIO(base64.b64decode(img_base64)))
+    img = Image.open(BytesIO(base64.b64decode(img_base64)))
     
     if(img_ori == 3):
-    	imgByte = imgByte.rotate(180)
+    	img = img.rotate(180)
     if(img_ori == 6):
-    	imgByte = imgByte.rotate(90)
+    	img = img.rotate(90)
     elif(img_ori == 8):
-    	imgByte = imgByte.rotate(-90)
+    	img = img.rotate(-90)
     
     logging.warning("imgByte: " + str(imgByte))
     logging.warning("img_ori: " + img_ori)
     
-    #imgbytes = base64.b64decode(img)
-    return predict_from_bytes(imgByte, radios)
+    
+    img = Image.open(fh, mode='r')
+    roiImg = img.crop(box)
 
-def predict_from_bytes(bytes, radios):
-    img = open_image(BytesIO(bytes))
+    imgByteArr = io.BytesIO()
+    img.save(imgByteArr, format='JPG')
+    imgByteArr = imgByteArr.getvalue()
+    
+    #imgbytes = base64.b64decode(img)
+    return predict_from_bytes(imgByteArr, radios)
+
+def predict_from_bytes(imgByteArr, radios):
+    img = open_image(imgByteArr)
     
     _,_,losses = learn.predict(img)
     predictions = sorted(zip(classes, map(float, losses)), key=lambda p: p[1], reverse=True)
