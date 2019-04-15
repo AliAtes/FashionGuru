@@ -97,11 +97,11 @@
 			    image.setAttribute('style','transform:rotate(180deg)');
 			else if(orientation == 6){
 			    image.setAttribute('style','transform:rotate(90deg)');
-			    img_con.setAttribute('style', 'height:' + image.width + ';' + 'margin-left:-40%;');
+			    /*img_con.setAttribute('style', 'height:' + (image.width).toString() + ';' + 'margin-left:-40%;');*/
 			}
 			else if(orientation == 8){
 			    image.setAttribute('style','transform:rotate(-90deg)');
-			    img_con.setAttribute('style', 'height:' + image.width + ';' + 'margin-left:-40%;');
+			    /*img_con.setAttribute('style', 'height:' + (image.width).toString() + ';' + 'margin-left:-40%;');*/
 			}
 	        });
 	    };
@@ -120,58 +120,72 @@
             <br />
             <span class="contact100-form-title" style="font-size:40px;font-size:12vw;">Fashion Guru</span>
 
+			
+			<form class="contact100-form validate-form" action="/upload" method="post" enctype="multipart/form-data">
+			
+			<table style="width: 100%;" >
+				<tbody>
+					<tr>
+						<td>
+							<div class="wrap-input100 validate-input" data-validate="jpg veya png kabul edilmektedir." style="margin-top:0;">
+								<div id="resim-sec" class="container-contact100-form-btn" style="margin-top:20px;padding-top:0;">
+									<div class="wrap-contact100-form-btn">
+										<div class="contact100-form-bgbtn"></div>
 
-            <form class="contact100-form validate-form" action="/upload" method="post" enctype="multipart/form-data">
+										<label class="contact100-form-btn" style="margin-bottom:5px;margin-top:5px;height:40px;" id="submit_btn" for="inp_file">
+											<input id="inp_file" type="file" name="file" style="display:none;" oninput="viewButtons();">
+											<span class="btn-text">Kıyafetinizi Yükleyiniz</span>
+											<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+										</label>
 
-                <div class="wrap-input100 validate-input" data-validate="jpg veya png kabul edilmektedir." style="margin-top:0;">
-
-                    <div id="resim-sec" class="container-contact100-form-btn" style="margin-top:20px;padding-top:0;">
-                        <div class="wrap-contact100-form-btn">
-                            <div class="contact100-form-bgbtn"></div>
-
-                            <label class="contact100-form-btn" style="margin-bottom:5px;margin-top:5px;height:40px;" id="submit_btn" for="inp_file">
-                                <input id="inp_file" type="file" name="file" style="display:none;" oninput="viewButtons();">
-                                <span class="btn-text">Kıyafetinizi Yükleyiniz</span>
-                                <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-                            </label>
-
-                        </div>
-                    </div>
-
-                    <input id="inp_img" type="hidden" name="img" value="">
-		    <input id="img_ori_id" type="hidden" name="img_ori" value="">
-                    <span class="focus-input100"></span>
-                </div>
-
-                <br />
-
-                <div id="img_con" style="text-align:center;">
-                    <img style="width:50%" id='image-picked' class='no-display'>
-                </div>
-
-                <div class="container text-center" id="radios" style="visibility:hidden;margin-top:20px;">
-                    <div class="row">
-                        <hr />
-                        <div class="btn-group" style="display:contents;width:100%;">
-                            <input name="options" id="option1" value="Women" type="radio" checked autocomplete="off">
-                            <label class="btn btn-primary" for="option1" style="width:33%;display:inline-table;">Kadın<br />Giyim</label>
-                            <input name="options" id="option2" value="Men" type="radio" autocomplete="off">
-                            <label class="btn btn-primary" for="option2" style="width:33%;display:inline-table;">Erkek<br />Giyim</label>
-                            <input name="options" id="option3" value="Boy" type="radio" autocomplete="off">
-                            <label class="btn btn-primary" for="option3" style="width:33%;display:inline-table;">Çocuk<br />Giyim</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="analiz-et" class="container-contact100-form-btn" style="visibility:hidden;" onloadeddata="end();">
-                    <hr>
-                    <div class="wrap-contact100-form-btn">
-                        <div class="contact100-form-bgbtn"></div>
-                        <button type="submit" id="submit_btn" class="contact100-form-btn" onclick="radioButton();">
-                            <span class="btn-text">Tavsiyelere Bak</span>
-                        </button>
-                    </div>
-                </div>
+									</div>
+								</div>
+								<input id="inp_img" type="hidden" name="img" value="">
+								<input id="img_ori_id" type="hidden" name="img_ori" value="">
+								<span class="focus-input100"></span>
+							</div>
+                			<br />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div id="img_con" style="text-align:center;">
+								<img style="width:50%" id='image-picked' class='no-display'>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="container text-center" id="radios" style="visibility:hidden;margin-top:20px;">
+								<div class="row">
+									<hr />
+									<div class="btn-group" style="display:contents;width:100%;">
+										<input name="options" id="option1" value="Women" type="radio" checked autocomplete="off">
+										<label class="btn btn-primary" for="option1" style="width:33%;display:inline-table;">Kadın<br />Giyim</label>
+										<input name="options" id="option2" value="Men" type="radio" autocomplete="off">
+										<label class="btn btn-primary" for="option2" style="width:33%;display:inline-table;">Erkek<br />Giyim</label>
+										<input name="options" id="option3" value="Boy" type="radio" autocomplete="off">
+										<label class="btn btn-primary" for="option3" style="width:33%;display:inline-table;">Çocuk<br />Giyim</label>
+									</div>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div id="analiz-et" class="container-contact100-form-btn" style="visibility:hidden;" onloadeddata="end();">
+								<hr>
+								<div class="wrap-contact100-form-btn">
+									<div class="contact100-form-bgbtn"></div>
+									<button type="submit" id="submit_btn" class="contact100-form-btn" onclick="radioButton();">
+										<span class="btn-text">Tavsiyelere Bak</span>
+									</button>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 
             </form>
         </div>
