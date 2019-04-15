@@ -88,19 +88,19 @@
   	    fileInput.onchange = function(event) {
 	    var file = event.target.files[0];
 		getOrientation(file, function(orientation) {
-			alert(orientation);
+			//alert(orientation);
 			document.getElementById('img_ori_id').setAttribute('value', orientation);
 
 			image = document.getElementById('image-picked');
 
 			if(orientation == 3)
-				image.setAttribute('style','transform:rotate(180deg)');
+				image.setAttribute('style','transform:rotate(180deg);width:100%;margin-bottom:70px;margin-top:70px;');
 			else if(orientation == 6){
-				image.setAttribute('style','transform:rotate(90deg)');
+				image.setAttribute('style','transform:rotate(90deg);width:100%;margin-bottom:70px;margin-top:70px;');
 				rotated = 6;
 			}
 			else if(orientation == 8){
-				image.setAttribute('style','transform:rotate(-90deg)');
+				image.setAttribute('style','transform:rotate(-90deg);width:100%;margin-bottom:70px;margin-top:70px;');
 				rotated = 8;
 			}
 			});
@@ -110,7 +110,7 @@
 	function resize(){
 		if(rotated == 6 || rotated == 8){
 			image = document.getElementById('image-picked');
-			alert(image.width + ',' + image.height);
+			//alert(image.width + ',' + image.height);
 			img_td.setAttribute('height', image.width);
 			img_td.setAttribute('width', image.height);
 		}		
@@ -158,7 +158,7 @@
 					<tr>
 						<td>
 							<div id="img_con" style="text-align:center;">
-								<img style="width: 100%;margin-bottom: 70px;margin-top: 70px;" id='image-picked' class='no-display'>
+								<img style="width:100%;margin-bottom:70px;margin-top:70px;" id='image-picked' class='no-display'>
 							</div>
 						</td>
 					</tr>
