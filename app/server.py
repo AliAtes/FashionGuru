@@ -58,11 +58,11 @@ async def upload(request):
     img = Image.open(BytesIO(base64.b64decode(img_base64)))
     
     if(img_ori == 3):
-    	img = img.rotate(180)
+    	img = img.rotate(-180)
     if(img_ori == 6):
-    	img = img.rotate(90)
+    	img = img.rotate(270)
     elif(img_ori == 8):
-    	img = img.rotate(-90)
+    	img = img.rotate(180)
     
     logging.warning("img: " + str(img))
     logging.warning("img_ori: " + img_ori)
