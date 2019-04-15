@@ -60,7 +60,7 @@ async def upload(request):
     if(img_ori == 3):
     	img = img.rotate(-180)
     if(img_ori == 6):
-    	img = img.rotate(180)
+    	img = img.rotate(-90)
     elif(img_ori == 8):
     	img = img.rotate(90)
     
