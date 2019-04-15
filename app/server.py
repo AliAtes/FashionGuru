@@ -75,7 +75,7 @@ async def upload(request):
     return predict_from_bytes(imgByteArr, radios)
 
 def predict_from_bytes(imgByteArr, radios):
-    img = open_image(imgByteArr)
+    img = open_image(BytesIO(imgByteArr))
     
     _,_,losses = learn.predict(img)
     predictions = sorted(zip(classes, map(float, losses)), key=lambda p: p[1], reverse=True)
