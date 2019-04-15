@@ -68,7 +68,7 @@ async def upload(request):
     logging.warning("img_ori: " + img_ori)
     
     imgByteArr = io.BytesIO()
-    img.save(imgByteArr, format='JPG')
+    img.save(imgByteArr, format='jpeg')
     imgByteArr = imgByteArr.getvalue()
     
     #imgbytes = base64.b64decode(img)
