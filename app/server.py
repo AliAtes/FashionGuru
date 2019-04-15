@@ -67,10 +67,6 @@ async def upload(request):
     logging.warning("imgByte: " + str(imgByte))
     logging.warning("img_ori: " + img_ori)
     
-    
-    img = Image.open(fh, mode='r')
-    roiImg = img.crop(box)
-
     imgByteArr = io.BytesIO()
     img.save(imgByteArr, format='JPG')
     imgByteArr = imgByteArr.getvalue()
